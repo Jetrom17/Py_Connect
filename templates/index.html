@@ -1,0 +1,89 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<style>
+/* Estilos para index.html */
+
+/* Estilização para o corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Estilização para o cabeçalho */
+h1 {
+    color: #333;
+}
+
+/* Estilização para o formulário de upload */
+form {
+    margin-bottom: 20px;
+}
+
+input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Estilização para a lista de arquivos */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+button {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+</style>
+<head>
+    <title>Upload File</title>
+</head>
+<body>
+    <h1>Enviar Arquivo</h1>
+    <form method="POST" enctype="multipart/form-data" action="/upload">
+        <input type="file" name="file">
+        <input type="submit" value="Enviar">
+    </form>
+    <h2>Arquivos no Diretório</h2>
+    <ul>
+        {% for file in files %}
+            <li>
+                <a href="{{ file }}">{{ file }}</a>
+                {% if not is_directory(file) %}
+                    <a href="{{ url_for('download_file', filename=file) }}"><button>Baixar</button></a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
